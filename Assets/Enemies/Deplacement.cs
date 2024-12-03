@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +11,15 @@ public int distance;
 public NavMeshAgent agent;
 public RaycastHit hit;
 private bool EnemyDetected;
-    
+public bool IsAlpha; 
+public float Height = 1.5f;
+
+    void Awake(){
+        if (IsAlpha){
+        transform.localScale=new Vector3(Height, Height, Height);
+        }
+    }
+
     void Update()
     {
             
@@ -43,4 +52,5 @@ private bool EnemyDetected;
         }
 
     }
+
 }
