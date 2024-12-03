@@ -8,21 +8,39 @@ public class Deplacement : MonoBehaviour
 protected GameObject Player;
 public int distance;
 public NavMeshAgent agent;
-
-    // Update is called once per frame
+public RaycastHit hit;
+private bool EnemyDetected;
+    
     void Update()
     {
+            
+            if (RaycastScan()){
+                EnemyDetected = true;
+            }
+            if (EnemyDetected){
+            agent.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distance,distance,0));
+            }
+
+    }
+
+
+    bool RaycastScan(){
+
+        LayerMask layerMask = LayerMask.GetMask("Default", "X Bot");
         
-    agent.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distance,distance,0));
-        // if (Input.GetMouseButtonDown(1)) 
-        // {
-        //     Ray movePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     if(Physics.Raycast(movePosition, out var hitInfo))
-        //     {
-                
-                
-        //     }
-        // }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+
+        { 
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red); 
+            Debug.Log("Did Hit"); 
+            return true;
+        }
+        else
+        { 
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.black); 
+            Debug.Log("Did not Hit"); 
+            return false;
+        }
 
     }
 }
