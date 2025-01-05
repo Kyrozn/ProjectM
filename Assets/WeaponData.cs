@@ -18,4 +18,5 @@ public class WeaponData : ScriptableObject
 
     // Spécifique aux armes utilisant du mana
     public int manaConsumption;
+    public GameObject Model3D;
 }
