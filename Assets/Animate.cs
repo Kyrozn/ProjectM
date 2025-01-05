@@ -19,10 +19,13 @@ public class Animate : MonoBehaviour
                 value = Input.GetAxis("Horizontal") * -1f;
             }
             PlayerAnimator.SetFloat("walk", value);
+            PlayerAnimator.SetBool("InVertical", false);
         } else if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f){
             PlayerAnimator.SetFloat("walk", Input.GetAxis("Vertical"));
+            PlayerAnimator.SetBool("InVertical", true);
         } else {
             PlayerAnimator.SetFloat("walk", 0f);
+            PlayerAnimator.SetBool("InVertical", true);
         }
     }
 }
