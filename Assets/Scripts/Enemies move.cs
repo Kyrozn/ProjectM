@@ -35,3 +35,4 @@ public class Deplacement : MonoBehaviour
         agentNav.speed = speed;
     }
 }
+
