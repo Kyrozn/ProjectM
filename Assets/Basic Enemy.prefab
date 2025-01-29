@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distancefrom: 0
-  agentNav: {fileID: 0}
+  agentNav: {fileID: 5091825083747560796}
   speed: 1
 --- !u!195 &5091825083747560796
 NavMeshAgent:
@@ -303,4 +303,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
-  agent: {fileID: 0}
+  agent: {fileID: 5091825083747560796}
