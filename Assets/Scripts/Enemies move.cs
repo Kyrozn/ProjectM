@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class Deplacement : MonoBehaviour
 {
     protected GameObject Player;
-    public float distance;
-    public NavMeshAgent agent;
+    public float distancefrom;
+    public NavMeshAgent agentNav;
     public float speed = 1f;
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class Deplacement : MonoBehaviour
     }
     void Update()
     {
-        agent.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distance, distance, distance));
-        agent.speed = speed;
+        agentNav.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distancefrom, distancefrom, distancefrom));
+        agentNav.speed = speed;
     }
 }
