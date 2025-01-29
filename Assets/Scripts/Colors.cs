@@ -1,20 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Deplacement : MonoBehaviour
+public class Colors : MonoBehaviour
 {
-    protected GameObject Player;
-    public float distancefrom;
-    public NavMeshAgent agentNav;
-    public float speed = 1f;
-
-    // Update is called once per frame
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
         Transform childTransform = transform.Find("Beta_Joints");
-
         if (childTransform != null)
         {
             Renderer childRenderer = childTransform.GetComponent<Renderer>();
@@ -29,10 +22,10 @@ public class Deplacement : MonoBehaviour
             Debug.LogError("Aucun enfant nommé 'Beta_Joints' trouvé !");
         }
     }
+
+    // Update is called once per frame
     void Update()
     {
-        agentNav.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distancefrom, distancefrom, distancefrom));
-        agentNav.speed = speed;
+
     }
 }
-
