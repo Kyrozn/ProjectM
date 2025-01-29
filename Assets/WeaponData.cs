@@ -11,12 +11,12 @@ public class WeaponData : ScriptableObject
     public bool isLootable;
     public Weapons.Effect effect;
     public Weapons.Rarity rarity;
+    public GameObject Model3D;
 
     // Spécifique aux armes à distance
-    public int ammo;
-    public float reloadSpeed;
+    public int? ammo;
+    public float? reloadSpeed;
 
     // Spécifique aux armes utilisant du mana
-    public int manaConsumption;
-    public GameObject Model3D;
+    public int? manaConsumption;
 }
