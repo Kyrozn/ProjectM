@@ -27,7 +27,7 @@ public class Raycast : MonoBehaviour
         }
         if (EnemyDetected)
         {
-            agent.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distance, distance, 0));
+            agent.SetDestination(GameObject.Find("X Bot").transform.position - new Vector3(distance, distance, distance));
         }
 
     }
