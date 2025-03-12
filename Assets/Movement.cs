@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
             moveDirection = new Vector3(moveHorizontal, 0, moveVertical);
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
-            
+
 
             // Sauter si le bouton "Jump" est pressé
             if (Input.GetButton("Jump"))
