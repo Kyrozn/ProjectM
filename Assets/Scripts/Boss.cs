@@ -74,10 +74,12 @@ public class Boss : MonoBehaviour
     {
         if (distance < 10f)
         {
+            distance = 0.5f;
             IsDistance = false;
         }
         else
         {
+            distance = 5f;
             IsDistance = true;
         }
         ;
