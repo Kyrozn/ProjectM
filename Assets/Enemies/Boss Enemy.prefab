@@ -368,5 +368,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Height: 3
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 3329717181950416977, guid: 44ade7bb27b5c5344914d9ebc28aa5db, type: 3}
   projectileSpeed: 10
