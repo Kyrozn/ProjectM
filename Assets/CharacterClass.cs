@@ -19,9 +19,6 @@ public class CharacterClass : MonoBehaviour
     private Vector3 rotation;
     private Vector3 cameraRotation;
 
-    private Rigidbody rb;
-    //ajouter le type d'arme
-
     void Start(){
         // Récupère le script `Move` attaché au même GameObject
         MoveScript = GetComponent<PlayerController>();
@@ -58,14 +55,12 @@ public class CharacterClass : MonoBehaviour
     {
         if(velocity != Vector3.zero)
         {
-            //rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
             controller.Move(velocity * Time.deltaTime);
         }
     }
 
     private void PerformRotation()
     {
-        //rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
         controller.transform.Rotate(rotation);
         cam.transform.Rotate(-cameraRotation);
     }
