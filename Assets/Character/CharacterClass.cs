@@ -12,6 +12,8 @@ public class CharacterClass : MonoBehaviour
     protected int? Mana {get; set;}
     protected string Description {get; set;}
     //ajouter le type d'arme
+    
+    public GameObject Weapon {get; set;}
 
     void Start(){
         // Récupère le script `Move` attaché au même GameObject

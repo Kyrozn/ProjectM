@@ -1,4 +1,7 @@
+using UnityEngine;
+
 class Reaper : CharacterClass {
+    public WeaponData MyWeapon;
     Reaper() {
         Name = "Reaper";
         MaxHealth = 100;

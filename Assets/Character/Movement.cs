@@ -31,6 +31,7 @@ public class Movement : MonoBehaviour
 
         // Appliquer le mouvement
         controller.Move(moveDirection * Time.deltaTime);
+        
     }
     public void SimpleAttack(CharacterController controller) {
         if (controller.isGrounded)
