@@ -1,10 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
+    private Color originalColor;
+    private Renderer damageZoneRenderer;
+
+
     private float arrowStormCooldown = 8f;
     private float lastArrowStormTime = -Mathf.Infinity;
     private int arrowCount = 10;
@@ -12,6 +19,7 @@ public class Boss : MonoBehaviour
 
     private bool attackOngoing = false;
     private Dictionary<Action, int> RangedAttacks;
+    private Dictionary<Action, int> PhysicalAttack;
     private enum ArrowType
     {
         Normal,
@@ -28,16 +36,40 @@ public class Boss : MonoBehaviour
 
     private float lastAttackTime = -Mathf.Infinity;
 
+
+
+
+    //attaque de zone
+    public GameObject damageZone;
+
+private float areaAttackCooldown = 6f;
+private float lastAreaAttackTime = -Mathf.Infinity;
+
+
+
+
+
     void Awake()
     {
         transform.localScale = new Vector3(Height, Height, Height);
         RangedAttacks = new Dictionary<Action, int>()
-        {
-            {NormalAttack , 50},
+        {   {NormalAttack , 50},
             {ChargedAttack , 25},
             {ArrowStorm , 15},
             {ChangeArrow , 10},
         };
+
+        PhysicalAttack = new Dictionary<Action, int>()
+        {
+            {AreaAttack , 100}
+        };
+
+
+        damageZoneRenderer = damageZone.GetComponent<Renderer>();
+    if (damageZoneRenderer != null)
+    {
+        originalColor = damageZoneRenderer.material.color;
+    }
     }
 
     void Update()
@@ -59,36 +91,40 @@ public class Boss : MonoBehaviour
             CheckDistance(distanceToPlayer);
             if (IsDistance)
             {
-                Action action = ChooseRangeAttack();
+                Action action = ChooseAttack(RangedAttacks);
                 action?.Invoke();
             }
             else
             {
-                Debug.Log("Move Closer");
+                Action action = ChooseAttack(PhysicalAttack);
+                action?.Invoke();
             }
             attackOngoing = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+{
+    AreaAttack(); // Appuie sur T pour forcer le déclenchement
+}
     }
 
     private void CheckDistance(float distance)
     {
         if (distance < 10f)
         {
-            distance = 0.5f;
             IsDistance = false;
         }
         else
         {
-            distance = 5f;
             IsDistance = true;
         }
         ;
     }
 
-    private Action ChooseRangeAttack()
+    private Action ChooseAttack(Dictionary<Action, int> actions)
     {
         int totalWeight = 0;
-        foreach (var action in RangedAttacks.Values)
+        foreach (var action in actions.Values)
         {
             totalWeight += action;
         }
@@ -96,7 +132,7 @@ public class Boss : MonoBehaviour
         int randomNumber = UnityEngine.Random.Range(0, totalWeight);
         int cumulativeWeight = 0;
 
-        foreach (var action in RangedAttacks)
+        foreach (var action in actions)
         {
             cumulativeWeight += action.Value;
             if (randomNumber <= cumulativeWeight)
@@ -107,6 +143,8 @@ public class Boss : MonoBehaviour
 
         return null;
     }
+
+    
 
     private void NormalAttack()
     {
@@ -229,4 +267,43 @@ public class Boss : MonoBehaviour
     {
         currentArrowType = (ArrowType)randomNumber;
     }
+
+
+
+
+
+
+
+//attaque de zone
+private void AreaAttack()
+{
+    if (Time.time - lastAreaAttackTime < areaAttackCooldown) return;
+    lastAreaAttackTime = Time.time;
+
+    Debug.Log("Attack zone !");
+    damageZone.SetActive(true);
+
+    Renderer renderer = damageZone.GetComponent<Renderer>();
+    if (renderer != null)
+    {
+        Color redTransparent = new Color(1f, 0f, 0f, 0.3f);
+        if (renderer.material.HasProperty("_Color"))
+        {
+            renderer.material.color = redTransparent;
+        }
+    }
+
+    StartCoroutine(DisableDamageZone());
+}
+
+private IEnumerator DisableDamageZone()
+{
+    yield return new WaitForSeconds(0.5f);
+    if (damageZoneRenderer != null)
+    {
+        damageZoneRenderer.material.color = originalColor;
+    }
+    damageZone.SetActive(false);
+}
+
 }

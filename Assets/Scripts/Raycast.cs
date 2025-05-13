@@ -42,13 +42,11 @@ public class Raycast : MonoBehaviour
 
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-            Debug.Log("Did Hit");
             return true;
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.black);
-            Debug.Log("Did not Hit");
             return false;
         }
 
